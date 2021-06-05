@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:paddingTop="50dp"
+        android:paddingRight="50dp"
+        android:paddingLeft="50dp"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:textSize="20sp"
+            android:layout_marginBottom="30dp"
+            android:textColor="@color/black"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Mengajukan desain" />
+
+        <TextView
+            android:id="@+id/ukuran"
+            android:textStyle="bold"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Ukuran :" />
+
+        <EditText
+            android:background="@drawable/form"
+            android:layout_width="match_parent"
+            android:layout_height="45dp" />
+
+        <TextView
+            android:id="@+id/jumlah"
+            android:textStyle="bold"
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Jumlah :" />
+
+        <EditText
+            android:background="@drawable/form"
+            android:layout_width="match_parent"
+            android:layout_height="45dp" />
+
+        <TextView
+            android:id="@+id/catatan_cust"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Catatan untuk konveksi :"
+            android:textStyle="bold" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="62dp"
+            android:background="@drawable/form" />
+
+        <TextView
+            android:textStyle="bold"
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/foto" />
+
+        <ImageView
+            android:id="@+id/foto_produk"
+            android:layout_width="121dp"
+            android:layout_height="95dp"
+            android:src="@drawable/ic_foto" />
+
+        <TextView
+            android:id="@+id/catatan_seller"
+            android:textStyle="bold"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Tambahkan catatan :" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="62dp"
+            android:background="@drawable/form" />
+
+        <Button
+            android:id="@+id/terima"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="30dp"
+            android:text="Terima"
+            android:textAllCaps="false" />
+
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
