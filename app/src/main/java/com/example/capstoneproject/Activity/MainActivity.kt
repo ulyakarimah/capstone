@@ -6,31 +6,20 @@ import android.os.Bundle
 import android.view.View
 import android.widget.ImageButton
 import com.example.capstoneproject.R
+import com.example.capstoneproject.databinding.ActivityMainBinding
 
 // Android 1
 
-class MainActivity : AppCompatActivity(), View.OnClickListener {
+class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        val binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-        val imgButtonDesainku : ImageButton = findViewById(R.id.desainku)
-        imgButtonDesainku.setOnClickListener(this)
+        binding.desainku.setOnClickListener {
+            startActivity(Intent(this, DesainkuActivity::class.java)) }
 
-        val imgButtonKonveksi : ImageButton = findViewById(R.id.konveksi_terdekat)
-        imgButtonKonveksi.setOnClickListener(this)
-    }
-
-    override fun onClick(v: View?){
-        when(v?.id){
-            R.id.desainku -> {
-                val I = Intent(this@MainActivity, DesainkuActivity :: class.java )
-                startActivity(I)
-            }
-            R.id.konveksi_terdekat ->{
-                val I = Intent(this@MainActivity, KonveksiActivity :: class.java )
-                startActivity(I)
-            }
-        }
+        binding.konveksiTerdekat.setOnClickListener {
+            startActivity(Intent(this, KonveksiActivity::class.java)) }
     }
 }

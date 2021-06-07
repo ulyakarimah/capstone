@@ -19,6 +19,6 @@ data class Desain (
     var judul: String? = null,
 
     @ColumnInfo(name = "gambar")
-    var gambar: Int? = 0
+    var gambar: String? = null
 
 ) : Parcelable

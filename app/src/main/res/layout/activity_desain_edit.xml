@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".DesainEditActivity">
+    tools:context=".Activity.DesainAddUpdateActivity">
 
     <TextView
         android:id="@+id/tv_namadesain"
@@ -75,47 +75,9 @@
         android:layout_weight="1"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_selectimg"
         app:layout_constraintVertical_bias="0.0" />
-
-
-    <ImageButton
-        android:id="@+id/iv_choosenimg2"
-        android:layout_width="167dp"
-        android:layout_height="157dp"
-        android:layout_weight="1"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_selectimg"
-        app:layout_constraintVertical_bias="0.0" />
-
-    <ImageButton
-        android:id="@+id/iv_choosenimg3"
-        android:layout_width="167dp"
-        android:layout_height="157dp"
-        android:layout_weight="1"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/iv_choosenimg1"
-        app:layout_constraintVertical_bias="0.041" />
-
-    <ImageButton
-        android:id="@+id/iv_choosenimg4"
-        android:layout_width="167dp"
-        android:layout_height="157dp"
-        android:layout_weight="1"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/iv_choosenimg2"
-        app:layout_constraintVertical_bias="0.041" />
 
     <Button
         android:id="@+id/but_chooseImg"
@@ -127,7 +89,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.024"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/iv_choosenimg3"
+
         app:layout_constraintVertical_bias="0.673" />
 
     <Button
@@ -140,7 +102,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.98"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/iv_choosenimg4"
         app:layout_constraintVertical_bias="0.673" />
 
     <Button

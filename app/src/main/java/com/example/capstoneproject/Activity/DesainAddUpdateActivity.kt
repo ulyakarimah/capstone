@@ -6,15 +6,19 @@ import android.os.Bundle
 import android.provider.MediaStore
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.ImageButton
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import com.example.capstoneproject.Desain
 import com.example.capstoneproject.ViewModel.DesainAddUpdateViewModel
 import com.example.capstoneproject.R
 import com.example.capstoneproject.ViewModel.ViewModelFactory
 import com.example.capstoneproject.databinding.ActivityDesainAddUpdateBinding
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class DesainAddUpdateActivity : AppCompatActivity() {
     companion object {
@@ -27,20 +31,16 @@ class DesainAddUpdateActivity : AppCompatActivity() {
     }
 
     private var isEdit = false
-    private var desain: Desain? = null
+    private var desain: Desain?  = null
     private var position = 0
 
     private lateinit var desainAddUpdateViewModel: DesainAddUpdateViewModel
     private var _activityDesainAddUpdateBinding: ActivityDesainAddUpdateBinding? = null
     private val binding get() = _activityDesainAddUpdateBinding
 
-    private lateinit var chosenImg: ImageButton
 
     private val pickImage1 = 101
-    private val pickImage2 = 102
-    private val pickImage3 = 103
-    private val pickImage4 = 104
-    private var imageUri: Uri? = null
+    private var imageUri: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -50,21 +50,6 @@ class DesainAddUpdateActivity : AppCompatActivity() {
         binding?.ivChoosenimg1?.setOnClickListener {
             val gallery = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI)
             startActivityForResult(gallery, pickImage1)
-        }
-
-        binding?.ivChoosenimg2?.setOnClickListener {
-            val gallery = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI)
-            startActivityForResult(gallery, pickImage2)
-        }
-
-        binding?.ivChoosenimg3?.setOnClickListener {
-            val gallery = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI)
-            startActivityForResult(gallery, pickImage3)
-        }
-
-        binding?.ivChoosenimg4?.setOnClickListener {
-            val gallery = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI)
-            startActivityForResult(gallery, pickImage4)
         }
 
         desainAddUpdateViewModel = obtainViewModel(this@DesainAddUpdateActivity)
@@ -84,6 +69,7 @@ class DesainAddUpdateActivity : AppCompatActivity() {
             if (desain != null) {
                 desain?.let { desain ->
                     binding?.etNamadesain?.setText(desain!!.judul)
+
                 }
             }
         } else {
@@ -94,26 +80,40 @@ class DesainAddUpdateActivity : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         binding?.butSimpan?.text = btnTitle
+
+
         binding?.butSimpan?.setOnClickListener {
             val title = binding?.etNamadesain?.text.toString().trim()
-            if (title.isEmpty()) {
-                binding?.etNamadesain?.error = getString(R.string.empty)
-            } else {
-                desain.let { desain ->
-                    desain?.judul = title
+                if (title.isEmpty()) {
+                    binding?.etNamadesain?.error = getString(R.string.empty)
+                } else {
+                    insertToDb()
+                    desain.let { desain ->
+                        desain?.judul = title
+                    }
                 }
-
-                if (isEdit){
+                if (isEdit) {
                     desainAddUpdateViewModel.update(desain as Desain)
                     finish()
-                }else{
+                } else {
                     desainAddUpdateViewModel.insert(desain as Desain)
                     finish()
                 }
             }
         }
-    }
 
+    private fun insertToDb() {
+        val title = binding?.etNamadesain?.text.toString()
+        val image = imageUri
+        lifecycleScope.launch {
+            withContext(Dispatchers.IO) {
+                val desain = Desain(judul = title,gambar = image)
+                desainAddUpdateViewModel.insert(desain)
+            }
+            Toast.makeText(this@DesainAddUpdateActivity, "sukses", Toast.LENGTH_SHORT).show()
+            finish()
+        }
+    }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         if (isEdit) {
@@ -123,7 +123,7 @@ class DesainAddUpdateActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
+         when (item.itemId) {
             R.id.action_delete -> showAlertDialog(ALERT_DIALOG_DELETE)
             android.R.id.home -> showAlertDialog(ALERT_DIALOG_CLOSE)
         }
@@ -179,13 +179,10 @@ class DesainAddUpdateActivity : AppCompatActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (resultCode == RESULT_OK) {
-            imageUri = data?.data
-            when (requestCode) {
-                pickImage1 -> binding?.ivChoosenimg1?.setImageURI(imageUri)
-                pickImage2 -> binding?.ivChoosenimg2?.setImageURI(imageUri)
-                pickImage3 -> binding?.ivChoosenimg3?.setImageURI(imageUri)
-                pickImage4 -> binding?.ivChoosenimg4?.setImageURI(imageUri)
+            val uri = data?.data as Uri
+            imageUri = uri.toString()
+            binding?.ivChoosenimg1?.setImageURI(uri)
             }
         }
     }
-}
+

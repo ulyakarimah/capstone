@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.capstoneproject.Activity.DesainAddUpdateActivity
 import com.example.capstoneproject.databinding.ItemDesainBinding
 
@@ -32,6 +33,12 @@ class DesainAdapter internal constructor(private val activity: Activity) : Recyc
         fun bind(desain: Desain) {
             with(binding) {
                 tvDesainkuNumb.text = desain.judul
+                with(itemView) {
+                    Glide.with(this)
+                        .load(desain.gambar)
+                        .into(binding.fotoDesain)
+                }
+
                 cvItemdesain.setOnClickListener {
                     val intent = Intent(activity, DesainAddUpdateActivity::class.java)
                     intent.putExtra(DesainAddUpdateActivity.EXTRA_POSITION, adapterPosition)

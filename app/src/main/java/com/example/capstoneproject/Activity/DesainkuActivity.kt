@@ -24,6 +24,7 @@ class DesainkuActivity : AppCompatActivity(){
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+
         _activityDesainkuBinding = ActivityDesainkuBinding.inflate(layoutInflater)
         setContentView(binding?.root)
 
